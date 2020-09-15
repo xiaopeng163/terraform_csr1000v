@@ -11,7 +11,7 @@ resource "azurerm_resource_group" "terraform_demo" {
 
 # Create a virtual network
 resource "azurerm_virtual_network" "vnet" {
-  name                = "myTFVnet"
+  name                = "csr1000vnet"
   address_space       = ["10.0.0.0/16"]
   location            = azurerm_resource_group.terraform_demo.location
   resource_group_name = azurerm_resource_group.terraform_demo.name
@@ -19,7 +19,7 @@ resource "azurerm_virtual_network" "vnet" {
 
 # Create subnet
 resource "azurerm_subnet" "subnet" {
-  name                 = "myTFSubnet"
+  name                 = "crs1000vSubnet"
   resource_group_name  = azurerm_resource_group.terraform_demo.name
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["10.0.1.0/24"]
@@ -27,7 +27,7 @@ resource "azurerm_subnet" "subnet" {
 
 # Create public IP
 resource "azurerm_public_ip" "publicip" {
-  name                = "myTFPublicIP"
+  name                = "csr1000vPubIP1"
   location            = azurerm_resource_group.terraform_demo.location
   resource_group_name = azurerm_resource_group.terraform_demo.name
   allocation_method   = "Static"
@@ -35,7 +35,7 @@ resource "azurerm_public_ip" "publicip" {
 
 # Create Network Security Group and rule
 resource "azurerm_network_security_group" "nsg" {
-  name                = "myTFNSG"
+  name                = "csr1000vNSG"
   location            = azurerm_resource_group.terraform_demo.location
   resource_group_name = azurerm_resource_group.terraform_demo.name
 
@@ -75,7 +75,7 @@ resource "azurerm_network_interface_security_group_association" "nic-nsg" {
 
 # Create a Linux virtual machine
 resource "azurerm_virtual_machine" "csr_router" {
-  name                  = "myTFVM"
+  name                  = "csr1000v-r1"
   location              = azurerm_resource_group.terraform_demo.location
   resource_group_name   = azurerm_resource_group.terraform_demo.name
   network_interface_ids = [azurerm_network_interface.nic.id]
@@ -84,7 +84,7 @@ resource "azurerm_virtual_machine" "csr_router" {
   plan {
     publisher = "cisco"
     product   = "cisco-csr-1000v"
-    name      = "16_12-payg-sec"
+    name      = "17_2_1-payg-sec"
   }
   storage_os_disk {
     name              = "myOsDisk"
@@ -96,12 +96,12 @@ resource "azurerm_virtual_machine" "csr_router" {
   storage_image_reference {
     publisher = "cisco"
     offer     = "cisco-csr-1000v"
-    sku       = "16_12-payg-sec"
-    version   = "16.12.120190816"
+    sku       = "17_2_1-payg-sec"
+    version   = "17.2.120200508"
   }
 
   os_profile {
-    computer_name  = "myTFVM"
+    computer_name  = "csr1000v-r1"
     admin_username = var.admin_username
     admin_password = var.admin_password
   }
