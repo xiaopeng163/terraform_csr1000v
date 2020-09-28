@@ -1,6 +1,12 @@
 [![published](https://static.production.devnetcloud.com/codeexchange/assets/images/devnet-published.svg)](https://developer.cisco.com/codeexchange/github/repo/xiaopeng163/terraform_csr1000v)
 # Terraform CSR100v
 
+## Introduction
+
+This script can be use to quick setup CSR1000v with Terraform on Azure for testing or learning purpose
+
+## Quick Start
+
 Before we apply the changes, please accpet the terms with Azure CLI(Because we are using the image from marketplace which provided by Cisco).
 
 ```
