@@ -11,10 +11,15 @@ variable "admin_password" {
 variable "vm_instance_name" {
   type        = list(string)
   description = "vm name list"
-  default     = ["csr1000v_r1", "csr1000v_r2"]
+  default     = ["r1", "r2"]
 }
 
 variable "resource_group_name" {
   type    = string
   default = "terraform_demo"
+}
+
+variable "location_name" {
+  type    = string
+  default = "West Europe"
 }
